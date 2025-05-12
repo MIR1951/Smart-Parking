@@ -1,0 +1,639 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4989370D2DAE755A00617961 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4989370C2DAE755A00617961 /* FirebaseAuth */; };
+		4989370F2DAE755A00617961 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4989370E2DAE755A00617961 /* FirebaseCore */; };
+		498937112DAE755A00617961 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 498937102DAE755A00617961 /* FirebaseDatabase */; };
+		498937132DAE755A00617961 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 498937122DAE755A00617961 /* FirebaseFirestore */; };
+		498937152DAE755A00617961 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 498937142DAE755A00617961 /* FirebaseStorage */; };
+		49F2DB6F2DC6FD4200742BA2 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 49F2DB6E2DC6FD4200742BA2 /* FirebaseAnalytics */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		498936DD2DAE711500617961 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 498936C72DAE711300617961 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 498936CE2DAE711300617961;
+			remoteInfo = "Smart Parking";
+		};
+		498936E72DAE711500617961 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 498936C72DAE711300617961 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 498936CE2DAE711300617961;
+			remoteInfo = "Smart Parking";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		498936CF2DAE711300617961 /* Smart Parking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Smart Parking.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		498936DC2DAE711500617961 /* Smart ParkingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Smart ParkingTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		498936E62DAE711500617961 /* Smart ParkingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Smart ParkingUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		498936D12DAE711300617961 /* Smart Parking */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Smart Parking";
+			sourceTree = "<group>";
+		};
+		498936DF2DAE711500617961 /* Smart ParkingTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Smart ParkingTests";
+			sourceTree = "<group>";
+		};
+		498936E92DAE711500617961 /* Smart ParkingUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Smart ParkingUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		498936CC2DAE711300617961 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				498937112DAE755A00617961 /* FirebaseDatabase in Frameworks */,
+				498937132DAE755A00617961 /* FirebaseFirestore in Frameworks */,
+				49F2DB6F2DC6FD4200742BA2 /* FirebaseAnalytics in Frameworks */,
+				4989370F2DAE755A00617961 /* FirebaseCore in Frameworks */,
+				498937152DAE755A00617961 /* FirebaseStorage in Frameworks */,
+				4989370D2DAE755A00617961 /* FirebaseAuth in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		498936D92DAE711500617961 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		498936E32DAE711500617961 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		498936C62DAE711300617961 = {
+			isa = PBXGroup;
+			children = (
+				498936D12DAE711300617961 /* Smart Parking */,
+				498936DF2DAE711500617961 /* Smart ParkingTests */,
+				498936E92DAE711500617961 /* Smart ParkingUITests */,
+				49F2DB6D2DC6FD4200742BA2 /* Frameworks */,
+				498936D02DAE711300617961 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		498936D02DAE711300617961 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				498936CF2DAE711300617961 /* Smart Parking.app */,
+				498936DC2DAE711500617961 /* Smart ParkingTests.xctest */,
+				498936E62DAE711500617961 /* Smart ParkingUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		49F2DB6D2DC6FD4200742BA2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		498936CE2DAE711300617961 /* Smart Parking */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 498936F02DAE711500617961 /* Build configuration list for PBXNativeTarget "Smart Parking" */;
+			buildPhases = (
+				498936CB2DAE711300617961 /* Sources */,
+				498936CC2DAE711300617961 /* Frameworks */,
+				498936CD2DAE711300617961 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				498936D12DAE711300617961 /* Smart Parking */,
+			);
+			name = "Smart Parking";
+			packageProductDependencies = (
+				4989370C2DAE755A00617961 /* FirebaseAuth */,
+				4989370E2DAE755A00617961 /* FirebaseCore */,
+				498937102DAE755A00617961 /* FirebaseDatabase */,
+				498937122DAE755A00617961 /* FirebaseFirestore */,
+				498937142DAE755A00617961 /* FirebaseStorage */,
+				49F2DB6E2DC6FD4200742BA2 /* FirebaseAnalytics */,
+			);
+			productName = "Smart Parking";
+			productReference = 498936CF2DAE711300617961 /* Smart Parking.app */;
+			productType = "com.apple.product-type.application";
+		};
+		498936DB2DAE711500617961 /* Smart ParkingTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 498936F32DAE711500617961 /* Build configuration list for PBXNativeTarget "Smart ParkingTests" */;
+			buildPhases = (
+				498936D82DAE711500617961 /* Sources */,
+				498936D92DAE711500617961 /* Frameworks */,
+				498936DA2DAE711500617961 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				498936DE2DAE711500617961 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				498936DF2DAE711500617961 /* Smart ParkingTests */,
+			);
+			name = "Smart ParkingTests";
+			packageProductDependencies = (
+			);
+			productName = "Smart ParkingTests";
+			productReference = 498936DC2DAE711500617961 /* Smart ParkingTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		498936E52DAE711500617961 /* Smart ParkingUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 498936F62DAE711500617961 /* Build configuration list for PBXNativeTarget "Smart ParkingUITests" */;
+			buildPhases = (
+				498936E22DAE711500617961 /* Sources */,
+				498936E32DAE711500617961 /* Frameworks */,
+				498936E42DAE711500617961 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				498936E82DAE711500617961 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				498936E92DAE711500617961 /* Smart ParkingUITests */,
+			);
+			name = "Smart ParkingUITests";
+			packageProductDependencies = (
+			);
+			productName = "Smart ParkingUITests";
+			productReference = 498936E62DAE711500617961 /* Smart ParkingUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		498936C72DAE711300617961 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1630;
+				LastUpgradeCheck = 1630;
+				TargetAttributes = {
+					498936CE2DAE711300617961 = {
+						CreatedOnToolsVersion = 16.3;
+					};
+					498936DB2DAE711500617961 = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = 498936CE2DAE711300617961;
+					};
+					498936E52DAE711500617961 = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = 498936CE2DAE711300617961;
+					};
+				};
+			};
+			buildConfigurationList = 498936CA2DAE711300617961 /* Build configuration list for PBXProject "Smart Parking" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 498936C62DAE711300617961;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				4989370B2DAE755A00617961 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 498936D02DAE711300617961 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				498936CE2DAE711300617961 /* Smart Parking */,
+				498936DB2DAE711500617961 /* Smart ParkingTests */,
+				498936E52DAE711500617961 /* Smart ParkingUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		498936CD2DAE711300617961 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		498936DA2DAE711500617961 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		498936E42DAE711500617961 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		498936CB2DAE711300617961 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		498936D82DAE711500617961 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		498936E22DAE711500617961 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		498936DE2DAE711500617961 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 498936CE2DAE711300617961 /* Smart Parking */;
+			targetProxy = 498936DD2DAE711500617961 /* PBXContainerItemProxy */;
+		};
+		498936E82DAE711500617961 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 498936CE2DAE711300617961 /* Smart Parking */;
+			targetProxy = 498936E72DAE711500617961 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		498936EE2DAE711500617961 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = XD59PG7AUF;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		498936EF2DAE711500617961 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = XD59PG7AUF;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		498936F12DAE711500617961 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XD59PG7AUF;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "mir.Smart-Parking";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		498936F22DAE711500617961 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XD59PG7AUF;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "mir.Smart-Parking";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		498936F42DAE711500617961 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XD59PG7AUF;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "mir.Smart-ParkingTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Smart Parking.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Smart Parking";
+			};
+			name = Debug;
+		};
+		498936F52DAE711500617961 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XD59PG7AUF;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "mir.Smart-ParkingTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Smart Parking.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Smart Parking";
+			};
+			name = Release;
+		};
+		498936F72DAE711500617961 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XD59PG7AUF;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "mir.Smart-ParkingUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Smart Parking";
+			};
+			name = Debug;
+		};
+		498936F82DAE711500617961 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XD59PG7AUF;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "mir.Smart-ParkingUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Smart Parking";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		498936CA2DAE711300617961 /* Build configuration list for PBXProject "Smart Parking" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				498936EE2DAE711500617961 /* Debug */,
+				498936EF2DAE711500617961 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		498936F02DAE711500617961 /* Build configuration list for PBXNativeTarget "Smart Parking" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				498936F12DAE711500617961 /* Debug */,
+				498936F22DAE711500617961 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		498936F32DAE711500617961 /* Build configuration list for PBXNativeTarget "Smart ParkingTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				498936F42DAE711500617961 /* Debug */,
+				498936F52DAE711500617961 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		498936F62DAE711500617961 /* Build configuration list for PBXNativeTarget "Smart ParkingUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				498936F72DAE711500617961 /* Debug */,
+				498936F82DAE711500617961 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4989370B2DAE755A00617961 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.11.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4989370C2DAE755A00617961 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4989370B2DAE755A00617961 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		4989370E2DAE755A00617961 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4989370B2DAE755A00617961 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		498937102DAE755A00617961 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4989370B2DAE755A00617961 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		498937122DAE755A00617961 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4989370B2DAE755A00617961 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		498937142DAE755A00617961 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4989370B2DAE755A00617961 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		49F2DB6E2DC6FD4200742BA2 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4989370B2DAE755A00617961 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 498936C72DAE711300617961 /* Project object */;
+}
