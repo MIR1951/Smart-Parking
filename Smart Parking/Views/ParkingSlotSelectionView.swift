@@ -209,11 +209,6 @@ struct ParkingSlotSelectionView: View {
         
         print("Tekshirish: Arrival: \(arrivalTime), Exit: \(exitTime)")
         
-        // Vaqtlarni 1 minut bilan chegaralash
-        let oneMinute: TimeInterval = 60
-        let arrivalTimeWithBuffer = arrivalTime.addingTimeInterval(oneMinute)
-        let exitTimeWithBuffer = exitTime.addingTimeInterval(-oneMinute)
-        
         // Tanlangan vaqt bilan to'qnashuvchi barcha bronlarni tekshirish
         db.collection("reservations")
             .whereField("parkingSpotID", isEqualTo: parkingID)
@@ -251,20 +246,13 @@ struct ParkingSlotSelectionView: View {
                     
                     print("Rezervatsiya: \(slotNumber), Start: \(reservationStart), End: \(reservationEnd)")
                     
-                    // Vaqt oralig'i to'qnashuvini tekshirish
-                    // Endi birinchi rezervatsiya tugagandan keyin 1-daqiqa oraliq bilan keyingisi boshlansa ruxsat beriladi
-                    if (arrivalTime < reservationEnd && exitTime > reservationStart) {
-                        // Aniq chegaralarda to'qnashishini tekshirish
-                        // Faqat bizning kelishimiz o'zga chiqishiga teng bo'lsa (yoki chiqishimiz o'zga kelishiga teng bo'lsa) bu ketma-ket rezervatsiya
-                        // bunda 1 minutlik chegarani tekshiramiz
-                        if (arrivalTime.timeIntervalSince(reservationEnd) > -oneMinute && arrivalTime.timeIntervalSince(reservationEnd) <= 0) ||
-                           (exitTime.timeIntervalSince(reservationStart) < oneMinute && exitTime.timeIntervalSince(reservationStart) >= 0) {
-                            print("Slot \(slotNumber) ketma-ket band qilishga ruxsat beriladi. Oraliq 1 minut.")
-                        } else {
-                            // To'qnashuv aniqlandi - bu slot band
-                            print("Slot \(slotNumber) band! Tanlangan vaqt: \(arrivalTime)-\(exitTime), Band vaqt: \(reservationStart)-\(reservationEnd)")
-                            reservedSlotIDs.append(slotNumber)
-                        }
+                    // Aniq to'qnashuv formulasi:
+                    // Agar ikki vaqt oralig'i to'qnashsa, ular orasidagi maksimal boshlanish vaqti
+                    // ularning minimal tugash vaqtidan kichik bo'ladi
+                    if max(arrivalTime, reservationStart) < min(exitTime, reservationEnd) {
+                        // Bu joy band - uni ro'yxatga qo'shish
+                        print("Slot \(slotNumber) band! Tanlangan vaqt: \(arrivalTime)-\(exitTime), Band vaqt: \(reservationStart)-\(reservationEnd)")
+                        reservedSlotIDs.append(slotNumber)
                     } else {
                         print("Slot \(slotNumber) bo'sh chunki vaqtlar to'qnashmaydi")
                     }
