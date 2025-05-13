@@ -159,6 +159,41 @@ struct SignUpView: View {
             return
         }
         
+        // Ma'lumotlarni tekshirish
+        guard !name.isEmpty else {
+            errorMessage = "Iltimos, ismingizni kiriting"
+            showError = true
+            return
+        }
+        
+        guard !email.isEmpty else {
+            errorMessage = "Iltimos, email manzilingizni kiriting"
+            showError = true
+            return
+        }
+        
+        guard !password.isEmpty else {
+            errorMessage = "Iltimos, parolni kiriting"
+            showError = true
+            return
+        }
+        
+        // Email formatini tekshirish
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegex)
+        guard emailPredicate.evaluate(with: email) else {
+            errorMessage = "Iltimos, to'g'ri email manzilini kiriting"
+            showError = true
+            return
+        }
+        
+        // Parol uzunligini tekshirish
+        guard password.count >= 6 else {
+            errorMessage = "Parol kamida 6 ta belgidan iborat bo'lishi kerak"
+            showError = true
+            return
+        }
+        
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
                 errorMessage = error.localizedDescription
@@ -166,23 +201,36 @@ struct SignUpView: View {
                 return
             }
             
-            guard let user = result?.user else { return }
+            guard let user = result?.user else {
+                errorMessage = "Foydalanuvchi yaratishda xatolik yuz berdi"
+                showError = true
+                return
+            }
             
             // User ma'lumotlarini Firestore'ga saqlash
             let db = Firestore.firestore()
             let userData: [String: Any] = [
                 "name": name,
                 "email": email,
-                "createdAt": Date()
+                "createdAt": Timestamp(date: Date()),
+                "lastLogin": Timestamp(date: Date()),
+                "isActive": true,
+                "phoneNumber": "",
+                "profileImage": "",
+                "vehicles": [],
+                "favorites": [],
+                "bookings": []
             ]
             
             db.collection("users").document(user.uid).setData(userData) { error in
                 if let error = error {
-                    errorMessage = error.localizedDescription
+                    print("Firestore xatolik: \(error.localizedDescription)")
+                    errorMessage = "Ma'lumotlarni saqlashda xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring"
                     showError = true
                     return
                 }
                 
+                print("Foydalanuvchi ma'lumotlari muvaffaqiyatli saqlandi")
                 isRegistered = true
             }
         }
