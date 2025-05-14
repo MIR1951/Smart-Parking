@@ -53,18 +53,21 @@ struct BookingTimeSelectionView: View {
                         // Parking ma'lumotlari kartochkasi - fiksirlangan
                         VStack(alignment: .leading, spacing: 10) {
                             if let imageUrl = spot.images?.first, !imageUrl.isEmpty {
-                                AsyncImage(url: URL(string: imageUrl)) { image in
-                                    image
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(height: 120)
-                                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                                } placeholder: {
-                                    Rectangle()
-                                        .fill(Color.gray.opacity(0.2))
-                                        .frame(height: 120)
-                                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                                }
+                                StorageImageView(
+                                    path: imageUrl,
+                                    placeholder: Image(systemName: "car.fill"),
+                                    contentMode: .fill
+                                )
+                                .aspectRatio(contentMode: .fill)
+                                .frame(height: 200)
+                                .clipped()
+                            } else {
+                                Image(systemName: "car.fill")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(height: 200)
+                                    .padding()
+                                    .foregroundColor(.gray)
                             }
                             
                             VStack(alignment: .leading, spacing: 5) {

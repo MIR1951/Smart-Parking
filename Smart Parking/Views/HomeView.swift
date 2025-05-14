@@ -226,27 +226,24 @@ struct PopularParkingCard: View {
             // Rasm
             ZStack(alignment: .topTrailing) {
                 if let imageUrl = spot.images?.first, !imageUrl.isEmpty {
-                    AsyncImage(url: URL(string: imageUrl)) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 200, height: 120)
-                            .cornerRadius(10)
-                            .clipped()
-                    } placeholder: {
-                        Rectangle()
-                            .fill(Color.gray.opacity(0.2))
-                            .frame(width: 200, height: 120)
-                            .cornerRadius(10)
-                    }
+                    StorageImageView(
+                        path: imageUrl,
+                        placeholder: Image(systemName: "car.fill"),
+                        contentMode: .fill
+                    )
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 200, height: 120)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
                 } else {
                     Image(systemName: "car.fill")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .padding(30)
                         .frame(width: 200, height: 120)
+                       
+                        .foregroundColor(.gray)
                         .background(Color.gray.opacity(0.2))
-                        .cornerRadius(10)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
                 
                 // Rating va sevimli tugmasi
@@ -336,45 +333,25 @@ struct NearbyParkingCard: View {
         HStack(spacing: 15) {
             // Rasm
             ZStack(alignment: .topTrailing) {
-               if let imageUrl = spot.images?.first, !imageUrl.isEmpty, let url = URL(string: imageUrl) {
-    AsyncImage(url: url) { phase in
-        switch phase {
-        case .empty:
-            ProgressView() // Yuklanmoqda indikator
-        case .success(let image):
-            image
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-        case .failure(let error):
-            VStack {
-                Image(systemName: "photo")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 60, height: 60)
-                    .foregroundColor(.gray)
-                Text("Rasm yuklanmadi")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                Text(error.localizedDescription)
-                    .font(.caption2)
-                    .foregroundColor(.red)
-            }
-        @unknown default:
-            EmptyView()
-        }
-    }
-    .frame(width: 100, height: 100) // O‘zingizga mos o‘lcham
-    .cornerRadius(10)
-    .clipped()
-} else {
-    Image(systemName: "car.fill")
-        .resizable()
-        .aspectRatio(contentMode: .fit)
-        .padding(15)
-        .frame(width: 100, height: 100)
-        .background(Color.gray.opacity(0.2))
-        .cornerRadius(10)
-}
+                if let imageUrl = spot.images?.first, !imageUrl.isEmpty {
+                    StorageImageView(
+                        path: imageUrl,
+                        placeholder: Image(systemName: "car.fill"),
+                        contentMode: .fill
+                    )
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 80, height: 80)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                } else {
+                    Image(systemName: "car.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 80, height: 80)
+                        .padding()
+                        .foregroundColor(.gray)
+                        .background(Color.gray.opacity(0.2))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
                 Button(action: {
                     viewModel.toggleFavorite(spot)
                 }) {
@@ -423,14 +400,10 @@ struct NearbyParkingCard: View {
                         .lineLimit(1)
                 }
                 
-                    Text("\(Int(spot.pricePerHour)) so'm/soat")
-                        .font(.body)
-                        .fontWeight(.bold)
-                        .foregroundColor(.purple)
-                    
-                 
-                    
-                   
+                Text("\(Int(spot.pricePerHour)) so'm/soat")
+                    .font(.body)
+                    .fontWeight(.bold)
+                    .foregroundColor(.purple)
             }
         }
         .padding(10)

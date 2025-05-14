@@ -4,169 +4,191 @@ import FirebaseFirestore
 
 struct SplashView: View {
     @State private var isActive = false
-    @State private var isDataLoaded = false
-    @State private var loadingProgress = 0.0
-    @State private var loadingStatus = "Ma'lumotlar yuklanmoqda..."
-    @StateObject private var authManager = AuthManager.shared
-    @State private var retryCount = 0
-    private let maxRetries = 3
+    @State private var size = 0.8
+    @State private var opacity = 0.5
+    @State private var isLoading = true
+    @State private var dataLoaded = false
+    
+    @AppStorage("onboardingCompleted") private var onboardingCompleted = false
+    @State private var isUserLoggedIn = false
+    
+    // Ma'lumotlarni saqlash uchun hech qanday o'zgarishsiz
+    @State private var parkingSpots: [ParkingSpot] = []
     
     var body: some View {
         ZStack {
-            // Background color - purple
-            Color(UIColor(red: 107/255, green: 60/255, blue: 234/255, alpha: 1.0))
-                .ignoresSafeArea()
+            // Fon rangi
+            LinearGradient(gradient: Gradient(colors: [Color.purple, Color.purple.opacity(0.8)]), 
+                           startPoint: .top, 
+                           endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
             
-            VStack(spacing: 25) {
-                // Logo
-                ZStack {
-                    Circle()
-                        .fill(Color.white)
-                        .frame(width: 70, height: 70)
-                    
-                    Text("P")
-                        .font(.system(size: 40, weight: .bold))
-                        .foregroundColor(Color(UIColor(red: 107/255, green: 60/255, blue: 234/255, alpha: 1.0)))
-                }
-                
-                // App name
-                Text("Avtomobil parkovkasi")
-                    .font(.system(size: 28, weight: .semibold))
-                    .foregroundColor(.white)
-                
-                Spacer().frame(height: 40)
-                
-                // Loading indicator
-                if !isActive {
-                    VStack(spacing: 15) {
-                        // Progress indikatori
-                        ZStack {
-                            Circle()
-                                .stroke(lineWidth: 4)
-                                .opacity(0.3)
-                                .foregroundColor(.white)
-                                .frame(width: 50, height: 50)
-                            
-                            Circle()
-                                .trim(from: 0.0, to: CGFloat(min(loadingProgress, 1.0)))
-                                .stroke(style: StrokeStyle(lineWidth: 4, lineCap: .round, lineJoin: .round))
-                                .foregroundColor(.white)
-                                .rotationEffect(Angle(degrees: 270.0))
-                                .frame(width: 50, height: 50)
-                                .animation(.linear, value: loadingProgress)
-                            
-                            if loadingProgress >= 1.0 {
-                                Image(systemName: "checkmark")
-                                    .font(.system(size: 20, weight: .bold))
-                                    .foregroundColor(.white)
-                            }
-                        }
-                        
-                        // Loading status
-                        Text(loadingStatus)
-                            .foregroundColor(.white.opacity(0.8))
-                            .font(.caption)
+            if isActive {
+                // Keyingi ekranga o'tish
+                Group {
+                    if !onboardingCompleted {
+                        OnboardingView()
+                    } else if !isUserLoggedIn {
+                        LoginView()
+                    } else {
+                        TabBarView()
                     }
                 }
-            }
-            
-            // Bottom indicator (Home bar)
-            VStack {
-                Spacer()
-                Rectangle()
-                    .fill(Color.white)
-                    .frame(width: 150, height: 5)
-                    .cornerRadius(2.5)
-                    .padding(.bottom, 10)
-            }
-        }
-        .onAppear {
-            // Load Firebase data
-            loadFirebaseData()
-        }
-        .fullScreenCover(isPresented: $isActive) {
-            if authManager.isLoggedIn {
-                if authManager.isOnboardingCompleted {
-                    // User is logged in and has completed onboarding
-                    TabBarView()
-                } else {
-                    // User is logged in but hasn't completed onboarding
-                    OnboardingView()
-                }
+                .transition(.opacity)
             } else {
-                // User is not logged in
-                if authManager.isOnboardingCompleted {
-                    // Onboarding completed but not logged in
-                    LoginView()
-                } else {
-                    // Neither logged in nor onboarding completed
-                    OnboardingView()
+                // Splash ekrani ko'rsatish
+                VStack {
+                    Spacer()
+                    
+                    VStack {
+                        Image("app_logo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 150, height: 150)
+                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .stroke(Color.white, lineWidth: 2)
+                            )
+                            .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
+                        
+                        Text("Smart Parking")
+                            .font(.system(size: 34, weight: .bold))
+                            .foregroundColor(.white)
+                            .padding(.top, 20)
+                        
+                        Text("Qulay parkovka tizimi")
+                            .font(.system(size: 16))
+                            .foregroundColor(.white.opacity(0.8))
+                            .padding(.top, 5)
+                        
+                        // Yuklash indikatori
+                        if isLoading {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                .padding(.top, 20)
+                        }
+                    }
+                    .scaleEffect(size)
+                    .opacity(opacity)
+                    .onAppear {
+                        withAnimation(.easeIn(duration: 1.2)) {
+                            self.size = 1.0
+                            self.opacity = 1.0
+                        }
+                    }
+                    
+                    Spacer()
+                    
+                    Text("v 1.0.0")
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.7))
+                        .padding(.bottom, 20)
+                }
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        withAnimation {
+                            self.isLoading = false
+                            self.isActive = true
+                        }
+                        
+                    }
+                    // Ilovaning ma'lumotlarini yuklash
+                    
+                    loadData()
                 }
             }
         }
     }
     
-    private func loadFirebaseData() {
-        // Initialize FirestoreService
-        let firestoreService = FirestoreService.shared
+    // Ma'lumotlarni yuklash, lekin hech narsa yaratimasdan
+    private func loadData() {
+        // Foydalanuvchi holati
+        checkAuthState()
         
-        // Start with some initial progress
-        loadingProgress = 0.2
-        loadingStatus = "Ma'lumotlarni tekshirish..."
-        
-        // Schedule work with a slight delay to allow UI to render
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            // Preload all app data
-            loadingProgress = 0.4
-            loadingStatus = "Ma'lumotlar yuklanmoqda..."
+        // Firebase-dan parkovka joylarini olish
+        fetchParkingSpots { spots in
+            self.parkingSpots = spots
+            print("Yuklangan parkovka joylari soni: \(spots.count)")
             
-            firestoreService.preloadAppData { success in
-                if success {
-                    loadingProgress = 0.8
-                    loadingStatus = "Ma'lumotlar muvaffaqiyatli yuklandi"
-                    
-                    // Check authentication status and complete loading
-                    authManager.checkAuthStatus()
-                    
-                    loadingProgress = 1.0
-                    loadingStatus = "Ilovaga kirish..."
-                    
-                    // Make sure we show splash screen for at least 2.5 seconds total
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        isDataLoaded = true
-                        isActive = true
-                    }
-                } else {
-                    // Handle data loading failure
-                    if retryCount < maxRetries {
-                        retryCount += 1
-                        loadingStatus = "Qayta urinish \(retryCount)/\(maxRetries)..."
-                        loadingProgress = 0.3
-                        
-                        // Retry after a delay with exponential backoff
-                        let delay = Double(retryCount) * 2.0
-                        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                            loadingProgress = 0.0
-                            loadFirebaseData()
-                        }
-                    } else {
-                        // Max retries reached, proceed anyway
-                        loadingStatus = "Ma'lumotlarni yuklashda xatolik! Ilovani qayta ishga tushiring."
-                        loadingProgress = 1.0
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                            isDataLoaded = true
-                            isActive = true
-                        }
-                    }
+            // Keyingi ekranga o'tish, malumotlar yuklangandan so'ng
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                withAnimation {
+                    self.isLoading = false
+                    self.isActive = true
                 }
             }
+        }
+    }
+    
+    // Foydalanuvchi holati
+    private func checkAuthState() {
+        if let user = Auth.auth().currentUser {
+            print("Foydalanuvchi tizimga kirgan: \(user.uid)")
+            self.isUserLoggedIn = true
+        } else {
+            print("Foydalanuvchi tizimga kirmagan")
+            self.isUserLoggedIn = false
+        }
+    }
+    
+    // Firebase-dan ma'lumotlarni faqat O'QISH (yozish emas)
+    private func fetchParkingSpots(completion: @escaping ([ParkingSpot]) -> Void) {
+        let db = Firestore.firestore()
+        
+        db.collection("parkingSpots").getDocuments { snapshot, error in
+            if let error = error {
+                print("Parkovka joylarini olishda xatolik: \(error.localizedDescription)")
+                completion([])
+                return
+            }
+            
+            guard let documents = snapshot?.documents else {
+                print("Hech qanday parkovka joyi topilmadi")
+                completion([])
+                return
+            }
+            
+            let spots = documents.compactMap { document -> ParkingSpot? in
+                let data = document.data()
+                
+                guard let name = data["name"] as? String,
+                      let address = data["address"] as? String,
+                      let pricePerHour = data["pricePerHour"] as? Double else {
+                    return nil
+                }
+                
+                return ParkingSpot(
+                    id: document.documentID,
+                    name: name,
+                    address: address,
+                    pricePerHour: pricePerHour,
+                    spotsAvailable: data["spotsAvailable"] as? Int ?? 0,
+                    distance: data["distance"] as? String ?? "",
+                    location: data["location"] as? GeoPoint,
+                    features: data["features"] as? [String],
+                    rating: data["rating"] as? Double,
+                    reviewCount: data["reviewCount"] as? Int,
+                    category: data["category"] as? String,
+                    description: data["description"] as? String,
+                    operatedBy: data["operatedBy"] as? String,
+                    images: data["images"] as? [String]
+                )
+            }
+            
+            completion(spots)
         }
     }
 }
 
-struct SplashView_Previews: PreviewProvider {
-    static var previews: some View {
+struct SplashScreenView: View {
+    var body: some View {
         SplashView()
+    }
+}
+
+struct SplashScreenView_Previews: PreviewProvider {
+    static var previews: some View {
+        SplashScreenView()
     }
 } 

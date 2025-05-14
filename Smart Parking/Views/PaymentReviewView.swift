@@ -80,22 +80,23 @@ struct PaymentReviewView: View {
                     HStack(alignment: .top, spacing: 12) {
                         // Parking image
                         if let imageUrl = spot.images?.first, !imageUrl.isEmpty {
-                                if let url = URL(string: imageUrl) {
-                                AsyncImage(url: url) { phase in
-                                    switch phase {
-                                    case .empty:
-                                        ProgressView()
-                                    case .success(let image):
-                                        image
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                    case .failure(let error):
-                                        Text("Rasm yuklanmadi: \(error.localizedDescription)")
-                                    @unknown default:
-                                        EmptyView()
-                                    }
-                                }
-                            }
+                            StorageImageView(
+                                path: imageUrl,
+                                placeholder: Image(systemName: "car.fill"),
+                                contentMode: .fill
+                            )
+                            .aspectRatio(contentMode: .fill)
+                            .frame(height: 150)
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                        } else {
+                            Image(systemName: "car.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 150)
+                                .padding()
+                                .foregroundColor(.gray)
+                                .background(Color.gray.opacity(0.2))
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
                         }
                         
                         VStack(alignment: .leading, spacing: 4) {

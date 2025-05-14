@@ -25,19 +25,16 @@ struct ParkingSpotDetailsView: View {
                         // Asosiy rasm qismi
                         ZStack(alignment: .top) {
                             // Asosiy rasm
-                            if let imageUrl = spot.images?.first, !imageUrl.isEmpty {
-                                AsyncImage(url: URL(string: imageUrl)) { image in
-                                    image
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(height: 250)
-                                        .clipped()
-                                } placeholder: {
-                                    Rectangle()
-                                        .fill(Color.gray.opacity(0.2))
-                                        .frame(height: 250)
-                                }
-                            } else {
+                            if let imagePath = spot.images?.first, !imagePath.isEmpty {
+                                StorageImageView(
+                                    path: imagePath,
+                                    placeholder: Image("parking_placeholder"),
+                                    contentMode: .fill
+                                )
+                                .frame(height: 250)
+                                .clipped()
+                            }
+                             else {
                                 Image("parking1")
                                 .resizable()
                                 .scaledToFill()
@@ -90,18 +87,13 @@ struct ParkingSpotDetailsView: View {
                                         if let images = spot.images {
                                             ForEach(0..<min(5, images.count), id: \.self) { index in
                                                 if !images[index].isEmpty {
-                                                    AsyncImage(url: URL(string: images[index])) { image in
-                                                        image
-                                                            .resizable()
-                                                            .scaledToFill()
-                                                            .frame(width: 60, height: 60)
-                                                            .cornerRadius(8)
-                                                    } placeholder: {
-                                                        Rectangle()
-                                                            .fill(Color.gray.opacity(0.2))
-                                                            .frame(width: 60, height: 60)
-                                                            .cornerRadius(8)
-                                                    }
+                                                    StorageImageView(
+                                                        path: images[index],
+                                                        placeholder: Image(systemName: "photo"),
+                                                        contentMode: .fill
+                                                    )
+                                                    .frame(width: 60, height: 60)
+                                                    .cornerRadius(8)
                                                 } else {
                                                     Image("parking1")
                                                         .resizable()
@@ -478,7 +470,7 @@ struct GalleryTabContent: View {
                 Text("Galereya (\(images.count))")
                     .font(.headline)
                                 
-                                Spacer()
+                Spacer()
                                 
                 Button(action: {}) {
                     HStack {
@@ -496,25 +488,21 @@ struct GalleryTabContent: View {
             ], spacing: 10) {
                 ForEach(images.indices, id: \.self) { index in
                     if !images[index].isEmpty {
-                        AsyncImage(url: URL(string: images[index])) { image in
-                            image
-                                .resizable()
-                                .scaledToFill()
-                                .frame(height: 120)
-                                .cornerRadius(12)
-                                .clipped()
-                        } placeholder: {
-                            Rectangle()
-                                .fill(Color.gray.opacity(0.2))
-                                .frame(height: 120)
-                                .cornerRadius(12)
-                        }
+                        // Firebase Storage'dan rasmlarni yuklash
+                        StorageImageView(
+                            path: images[index],
+                            placeholder: Image(systemName: "car.fill"),
+                            contentMode: .fill
+                        )
+                        .frame(height: 120)
+                        .cornerRadius(12)
+                        .clipped()
                     } else {
                         Image("parking1")
                             .resizable()
                             .scaledToFill()
                             .frame(height: 120)
-                        .cornerRadius(12)
+                            .cornerRadius(12)
                             .clipped()
                     }
                 }

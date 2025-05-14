@@ -132,23 +132,23 @@ struct ParkingReservationCard: View {
                 if let parkingSpot = viewModel.getParkingSpot(for: reservation),
                    let imageUrl = parkingSpot.images?.first,
                    !imageUrl.isEmpty {
-                    AsyncImage(url: URL(string: imageUrl)) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 100, height: 80)
-                            .cornerRadius(12)
-                    } placeholder: {
-                        Rectangle()
-                            .fill(Color.gray.opacity(0.2))
-                            .frame(width: 100, height: 80)
-                            .cornerRadius(12)
-                    }
+                    StorageImageView(
+                        path: imageUrl,
+                        placeholder: Image(systemName: "car.fill"),
+                        contentMode: .fill
+                    )
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 80, height: 80)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
                 } else {
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.2))
-                        .frame(width: 100, height: 80)
-                        .cornerRadius(12)
+                    Image(systemName: "car.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 80, height: 80)
+                        .padding()
+                        .foregroundColor(.gray)
+                        .background(Color.gray.opacity(0.2))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
                 
                 VStack(alignment: .leading, spacing: 4) {
@@ -635,11 +635,25 @@ struct ReservationDetailsView: View {
                             .font(.headline)
                         
                         HStack {
-                            Image(spot.images?.first ?? "parking1")
-                                .resizable()
-                                .scaledToFit()
+                            if let imageUrl = spot.images?.first, !imageUrl.isEmpty {
+                                StorageImageView(
+                                    path: imageUrl,
+                                    placeholder: Image(systemName: "car.fill"),
+                                    contentMode: .fill
+                                )
+                                .aspectRatio(contentMode: .fill)
                                 .frame(width: 80, height: 80)
-                                .cornerRadius(10)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                            } else {
+                                Image(systemName: "car.fill")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 80, height: 80)
+                                    .padding()
+                                    .foregroundColor(.gray)
+                                    .background(Color.gray.opacity(0.2))
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                            }
                             
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(spot.name)

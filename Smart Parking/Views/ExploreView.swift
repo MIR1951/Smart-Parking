@@ -28,9 +28,26 @@ struct ExploreView: View {
                             viewModel.showDetails = true
                         }) {
                             ZStack {
-                                Circle()
-                                    .fill(Color.purple)
-                                    .frame(width: 20, height: 20)
+                                // Map spot card image
+                                if let imageUrl = spot.images?.first, !imageUrl.isEmpty {
+                                    StorageImageView(
+                                        path: imageUrl,
+                                        placeholder: Image(systemName: "car.fill"),
+                                        contentMode: .fill
+                                    )
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 50, height: 50)
+                                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                                } else {
+                                    Image(systemName: "car.fill")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 50, height: 50)
+                                        .padding(8)
+                                        .foregroundColor(.gray)
+                                        .background(Color.gray.opacity(0.2))
+                                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                                }
                                 
                                 Circle()
                                     .stroke(Color.white, lineWidth: 2)
@@ -212,20 +229,17 @@ struct ExplorePopularCard: View {
         VStack(alignment: .leading) {
             // Rasm
             ZStack(alignment: .topTrailing) {
+                // Map spot card image
                 if let imageUrl = spot.images?.first, !imageUrl.isEmpty {
-                    AsyncImage(url: URL(string: imageUrl)) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 200, height: 120)
-                            .cornerRadius(10)
-                            .clipped()
-                    } placeholder: {
-                        Rectangle()
-                            .fill(Color.gray.opacity(0.2))
-                            .frame(width: 200, height: 120)
-                            .cornerRadius(10)
-                    }
+                    StorageImageView(
+                        path: imageUrl,
+                        placeholder: Image(systemName: "car.fill"),
+                        contentMode: .fill
+                    )
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 200, height: 120)
+                    .cornerRadius(10)
+                    .clipped()
                 } else {
                     Image(systemName: "car.fill")
                         .resizable()
@@ -323,20 +337,17 @@ struct ExploreSelectedCard: View {
         VStack(alignment: .leading) {
             // Rasm
             ZStack(alignment: .topTrailing) {
+                // List spot card image
                 if let imageUrl = parking.images?.first, !imageUrl.isEmpty {
-                    AsyncImage(url: URL(string: imageUrl)) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 200, height: 120)
-                            .cornerRadius(10)
-                            .clipped()
-                    } placeholder: {
-                        Rectangle()
-                            .fill(Color.gray.opacity(0.2))
-                            .frame(width: 200, height: 120)
-                            .cornerRadius(10)
-                    }
+                    StorageImageView(
+                        path: imageUrl,
+                        placeholder: Image(systemName: "car.fill"),
+                        contentMode: .fill
+                    )
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 200, height: 120)
+                    .cornerRadius(10)
+                    .clipped()
                 } else {
                     Image(systemName: "car.fill")
                         .resizable()

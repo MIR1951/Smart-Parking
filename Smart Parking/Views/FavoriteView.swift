@@ -124,19 +124,15 @@ struct FavoriteCard: View {
         HStack(spacing: 15) {
             // Rasm
             if let imageUrl = spot.images?.first, !imageUrl.isEmpty {
-                AsyncImage(url: URL(string: imageUrl)) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 100, height: 100)
-                        .cornerRadius(10)
-                        .clipped()
-                } placeholder: {
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.2))
-                        .frame(width: 100, height: 100)
-                        .cornerRadius(10)
-                }
+                StorageImageView(
+                    path: imageUrl,
+                    placeholder: Image(systemName: "car.fill"),
+                    contentMode: .fill
+                )
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 100, height: 100)
+                .cornerRadius(10)
+                .clipped()
             } else {
                 Image(systemName: "car.fill")
                     .resizable()
@@ -241,27 +237,22 @@ struct RemoveConfirmationView: View {
             HStack(spacing: 15) {
                 // Parking rasmi
                 if let imageUrl = parking.images?.first, !imageUrl.isEmpty {
-                    AsyncImage(url: URL(string: imageUrl)) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 80, height: 80)
-                            .cornerRadius(10)
-                            .clipped()
-                    } placeholder: {
-                        Rectangle()
-                            .fill(Color.gray.opacity(0.2))
-                            .frame(width: 80, height: 80)
-                            .cornerRadius(10)
-                    }
+                    StorageImageView(
+                        path: imageUrl,
+                        placeholder: Image(systemName: "car.fill"),
+                        contentMode: .fill
+                    )
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 80, height: 80)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
                 } else {
                     Image(systemName: "car.fill")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .padding(15)
                         .frame(width: 80, height: 80)
-                        .background(Color.gray.opacity(0.2))
-                        .cornerRadius(10)
+                        .padding()
+                        .foregroundColor(.gray)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
                 
                 VStack(alignment: .leading, spacing: 4) {

@@ -20,6 +20,14 @@ struct Smart_ParkingApp: App {
                 print("Firebase Auth Error: \(error)")
             }
         }
+        
+        // Parking ma'lumotlarini FirebasegaDataga yuklash uchun funksiya
+        // Bu kod birinchi marta ishga tushganda yoki debug rejimida ishlaydi
+        #if DEBUG
+        // Debug rejimida ma'lumotlarni yuklash
+       
+        #endif
+        ParkingDataUploader().uploadParkingData()
     }
     
     var body: some Scene {

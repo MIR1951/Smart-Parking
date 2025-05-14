@@ -52,7 +52,7 @@ struct ParkingSlotSelectionView: View {
                 
                 // Floor selection tabs
                 HStack(spacing: 0) {
-                    ForEach(0..<floors.count, id: \.self) { index in
+                    ForEach(0..<floors.count , id: \.self) { index in
                         Button(action: {
                             selectedFloor = index
                         }) {
@@ -91,6 +91,7 @@ struct ParkingSlotSelectionView: View {
                             // Joylar to'rtburchagi
                             ParkingGridView(
                                 slots: filteredSlots,
+                                selectedfloor: selectedFloor,
                                 selectedSlot: $selectedSlot,
                                 toggleSelection: toggleSlotSelection
                             )
@@ -144,7 +145,7 @@ struct ParkingSlotSelectionView: View {
     
     // Tanlangan qavatdagi slotlarni filtrlash
     private var filteredSlots: [ParkingSlot] {
-        slots.filter { $0.floor == selectedFloor }
+        slots.filter { $0.floor == selectedFloor + 1 }
     }
     
     private func loadParkingSlots() {
@@ -288,6 +289,7 @@ struct ParkingSlotSelectionView: View {
 // Parking Grid View - Joylar tarmog'i
 struct ParkingGridView: View {
     let slots: [ParkingSlot]
+    var selectedfloor: Int
     @Binding var selectedSlot: ParkingSlot?
     let toggleSelection: (String?) -> Void
     
@@ -390,34 +392,35 @@ struct ParkingGridView: View {
     // Joriy qavatning slotlarini filtrlash va saralash
     private func filteredAndSortedSlots() -> [ParkingSlot] {
         // Qavat prefixini aniqlash (1-qavatda "A", 2-qavatda "B", 3-qavatda "C")
-        let prefixes = ["A", "B", "C"]
-        guard slots.first?.floor != nil, let selectedFloor = slots.first?.floor else {
-            return []
-        }
-        
-        let prefix = selectedFloor < prefixes.count ? prefixes[selectedFloor] : "A"
-        
-        // Qavatga mos joylarni filtrlash
-        let filteredSlots = slots.filter { slot in
-            guard let slotNumber = slot.slotNumber else { return false }
-            return slotNumber.hasPrefix(prefix)
-        }
-        
-        // Joylarni raqamiga ko'ra saralash
-        return filteredSlots.sorted { slot1, slot2 in
-            guard let num1 = extractNumber(from: slot1.slotNumber ?? ""),
-                  let num2 = extractNumber(from: slot2.slotNumber ?? "") else {
-                return false
-            }
-            return num1 < num2
-        }
-    }
-    
-    // Slot raqamini ajratib olish (masalan: "A03" dan "3" ni)
-    private func extractNumber(from slotNumber: String) -> Int? {
-        guard slotNumber.count > 1 else { return nil }
-        let numberPart = slotNumber.dropFirst()
-        return Int(numberPart)
+//        let prefixes = ["A", "B", "C"]
+//        guard slots.first?.floor != nil, let selectedFloor = slots.first?.floor else {
+//            return []
+//        }
+//        
+//        let prefix = selectedFloor < prefixes.count ? prefixes[selectedFloor] : "A"
+//        
+//        // Qavatga mos joylarni filtrlash
+//        let filteredSlots = slots.filter { slot in
+//            guard let slotNumber = slot.slotNumber else { return false }
+//            return slotNumber.hasPrefix(prefix)
+//        }
+//        
+//        // Joylarni raqamiga ko'ra saralash
+//        return filteredSlots.sorted { slot1, slot2 in
+//            guard let num1 = extractNumber(from: slot1.slotNumber ?? ""),
+//                  let num2 = extractNumber(from: slot2.slotNumber ?? "") else {
+//                return false
+//            }
+//            return num1 < num2
+//        }
+//    }
+//    
+//    // Slot raqamini ajratib olish (masalan: "A03" dan "3" ni)
+//    private func extractNumber(from slotNumber: String) -> Int? {
+//        guard slotNumber.count > 1 else { return nil }
+//        let numberPart = slotNumber.dropFirst()
+//        return Int(numberPart)
+        slots
     }
 }
 
