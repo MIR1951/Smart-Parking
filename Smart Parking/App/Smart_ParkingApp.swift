@@ -27,7 +27,7 @@ struct Smart_ParkingApp: App {
         // Debug rejimida ma'lumotlarni yuklash
        
         #endif
-        ParkingDataUploader().uploadParkingData()
+       
     }
     
     var body: some Scene {
