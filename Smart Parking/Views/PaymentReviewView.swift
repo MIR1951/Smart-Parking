@@ -86,7 +86,7 @@ struct PaymentReviewView: View {
                                 contentMode: .fill
                             )
                             .aspectRatio(contentMode: .fill)
-                            .frame(height: 150)
+                            .frame(width: 80,height: 80)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                         } else {
                             Image(systemName: "car.fill")
@@ -204,7 +204,7 @@ struct PaymentReviewView: View {
                 }
                 .padding(.top, 16)
             }
-            
+            Spacer()
             // Continue button
             Button(action: {
                 processPayment()
@@ -216,6 +216,9 @@ struct PaymentReviewView: View {
                         .padding()
                         .background(Color.purple)
                         .cornerRadius(30)
+                        .padding(.horizontal)
+                        .padding(.bottom, 20)
+
                 } else {
                     Text("Davom etish")
                         .font(.headline)
@@ -224,9 +227,13 @@ struct PaymentReviewView: View {
                         .padding()
                         .background(Color.purple)
                         .cornerRadius(30)
+                        .padding(.horizontal)
+                        .padding(.bottom, 20)
                 }
+                
             }
-            .padding()
+            .padding(.horizontal)
+            .padding(.bottom, 20)
             .shadow(color: Color.purple.opacity(0.3), radius: 5, x: 0, y: 3)
             .disabled(isProcessing)
         }

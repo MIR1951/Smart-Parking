@@ -123,7 +123,7 @@ struct PaymentMethodSelectionView: View {
                     .padding(.bottom, 20)
                     .shadow(color: Color.purple.opacity(0.3), radius: 5, x: 0, y: 3)
             }
-            .padding(.top)
+            .padding()
         }
         .background(Color(UIColor.systemGroupedBackground))
         .edgesIgnoringSafeArea(.bottom)
