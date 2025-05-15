@@ -20,104 +20,81 @@ struct ParkingSpotDetailsView: View {
             Color.white.edgesIgnoringSafeArea(.all)
             
             VStack(spacing: 0) {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 15) {
-                        // Asosiy rasm qismi
-                        ZStack(alignment: .top) {
-                            // Asosiy rasm
-                            if let imagePath = spot.images?.first, !imagePath.isEmpty {
-                                StorageImageView(
-                                    path: imagePath,
-                                    placeholder: Image("parking_placeholder"),
-                                    contentMode: .fill
-                                )
-                                .frame(height: 250)
-                                .clipped()
-                            }
-                             else {
-                                Image("parking1")
+                VStack(alignment: .leading, spacing: 15) {
+                    // Asosiy rasm qismi
+                    ZStack(alignment: .top) {
+                        // Asosiy rasm
+                        if let imagePath = spot.images?.first, !imagePath.isEmpty {
+                            StorageImageView(
+                                path: imagePath,
+                                placeholder: Image("parking_placeholder"),
+                                contentMode: .fill
+                            )
+                            .frame(height: 250)
+                            .clipped()
+                            
+                        }
+                        else {
+                            Image("parking1")
                                 .resizable()
                                 .scaledToFill()
                                 .frame(height: 250)
                                 .clipped()
                         }
-                            
-                            // Yuqoridagi tugmalar
-                            HStack {
-                                Button(action: {
-                                    presentationMode.wrappedValue.dismiss()
-                                }) {
-                                    Image(systemName: "chevron.left")
-                                        .foregroundColor(.black)
-                                        .padding(12)
-                                        .background(Circle().fill(Color.white))
-                                        .shadow(color: Color.black.opacity(0.1), radius: 3)
-                                }
-                                
-                                Spacer()
-                                
-                                Button(action: {
-                                    showShareSheet = true
-                                }) {
-                                    Image(systemName: "square.and.arrow.up")
-                                        .foregroundColor(.black)
-                                        .padding(12)
-                                        .background(Circle().fill(Color.white))
-                                        .shadow(color: Color.black.opacity(0.1), radius: 3)
-                                }
-                                
-                                Button(action: {
-                                    isFavorite.toggle()
-                                }) {
-                                    Image(systemName: isFavorite ? "heart.fill" : "heart")
-                                        .foregroundColor(isFavorite ? .red : .black)
-                                        .padding(12)
-                                        .background(Circle().fill(Color.white))
-                                        .shadow(color: Color.black.opacity(0.1), radius: 3)
-                                }
+                        
+                        // Yuqoridagi tugmalar
+                        HStack {
+                            Button(action: {
+                                presentationMode.wrappedValue.dismiss()
+                            }) {
+                                Image(systemName: "chevron.left")
+                                    .foregroundColor(.black)
+                                    .padding(12)
+                                    .background(Circle().fill(Color.white))
+                                    .shadow(color: Color.black.opacity(0.1), radius: 3)
                             }
-                            .padding(.horizontal)
-                            .padding(.top, 20)
                             
-                            // Rasm thumbnaillar
-                            VStack {
-                                Spacer()
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: 5) {
-                                        if let images = spot.images {
-                                            ForEach(0..<min(5, images.count), id: \.self) { index in
-                                                if !images[index].isEmpty {
-                                                    StorageImageView(
-                                                        path: images[index],
-                                                        placeholder: Image(systemName: "photo"),
-                                                        contentMode: .fill
-                                                    )
-                                                    .frame(width: 60, height: 60)
-                                                    .cornerRadius(8)
-                                                } else {
-                                                    Image("parking1")
-                                                        .resizable()
-                                                        .scaledToFill()
-                                                        .frame(width: 60, height: 60)
-                                                        .cornerRadius(8)
-                                                }
-                                            }
-                                            
-                                            if images.count > 5 {
-                                                ZStack {
-                                                    Rectangle()
-                                                        .fill(Color.black.opacity(0.5))
-                                                        .frame(width: 60, height: 60)
-                                                        .cornerRadius(8)
-                                                    
-                                                    Text("+\(images.count - 5)")
-                                                        .foregroundColor(.white)
-                                                        .font(.system(size: 18, weight: .bold))
-                                                }
-                                            }
-                                        } else {
-                                            // Default image if no images available
-                                            ForEach(0..<3, id: \.self) { _ in
+                            Spacer()
+                            
+                            Button(action: {
+                                showShareSheet = true
+                            }) {
+                                Image(systemName: "square.and.arrow.up")
+                                    .foregroundColor(.black)
+                                    .padding(12)
+                                    .background(Circle().fill(Color.white))
+                                    .shadow(color: Color.black.opacity(0.1), radius: 3)
+                            }
+                            
+                            Button(action: {
+                                isFavorite.toggle()
+                            }) {
+                                Image(systemName: isFavorite ? "heart.fill" : "heart")
+                                    .foregroundColor(isFavorite ? .red : .black)
+                                    .padding(12)
+                                    .background(Circle().fill(Color.white))
+                                    .shadow(color: Color.black.opacity(0.1), radius: 3)
+                            }
+                        }
+                        .padding(.horizontal)
+                        .padding(.top, 20)
+                        
+                        // Rasm thumbnaillar
+                        VStack {
+                            Spacer()
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 5) {
+                                    if let images = spot.images {
+                                        ForEach(0..<min(5, images.count), id: \.self) { index in
+                                            if !images[index].isEmpty {
+                                                StorageImageView(
+                                                    path: images[index],
+                                                    placeholder: Image(systemName: "photo"),
+                                                    contentMode: .fill
+                                                )
+                                                .frame(width: 60, height: 60)
+                                                .cornerRadius(8)
+                                            } else {
                                                 Image("parking1")
                                                     .resizable()
                                                     .scaledToFill()
@@ -125,105 +102,129 @@ struct ParkingSpotDetailsView: View {
                                                     .cornerRadius(8)
                                             }
                                         }
+                                        
+                                        if images.count > 5 {
+                                            ZStack {
+                                                Rectangle()
+                                                    .fill(Color.black.opacity(0.5))
+                                                    .frame(width: 60, height: 60)
+                                                    .cornerRadius(8)
+                                                
+                                                Text("+\(images.count - 5)")
+                                                    .foregroundColor(.white)
+                                                    .font(.system(size: 18, weight: .bold))
+                                            }
+                                        }
+                                    } else {
+                                        // Default image if no images available
+                                        ForEach(0..<3, id: \.self) { _ in
+                                            Image("parking1")
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(width: 60, height: 60)
+                                                .cornerRadius(8)
+                                        }
                                     }
-                                    .padding(.horizontal)
-                                    .padding(.bottom, 5)
+                                }
+                                .padding(.horizontal)
+                                .padding(.bottom, 5)
+                            }
+                        }
+                    }
+                    .frame(height:250)
+                    
+                    // Asosiy ma'lumotlar
+                    VStack(alignment: .leading, spacing: 15) {
+                        // Kategoriya va reyting
+                        HStack {
+                            Text(spot.category ?? "Avtomobil parkovkasi")
+                                .foregroundColor(.purple)
+                                .font(.headline)
+                            
+                            Spacer()
+                            
+                            if let rating = spot.rating {
+                                HStack(spacing: 5) {
+                                    Image(systemName: "star.fill")
+                                        .foregroundColor(.yellow)
+                                    
+                                    Text(String(format: "%.1f", rating))
+                                        .fontWeight(.bold)
+                                    
+                                    if let reviewCount = spot.reviewCount {
+                                        Text("(\(reviewCount) sharhlar)")
+                                            .foregroundColor(.gray)
+                                    }
                                 }
                             }
                         }
                         
-                        // Asosiy ma'lumotlar
-                        VStack(alignment: .leading, spacing: 15) {
-                            // Kategoriya va reyting
-                            HStack {
-                                Text(spot.category ?? "Avtomobil parkovkasi")
-                                    .foregroundColor(.purple)
-                                    .font(.headline)
+                        // Nom va manzil
+                        HStack {
+                            VStack(alignment: .leading) {
+                                // Nom
+                                Text(spot.name)
+                                    .font(.title2)
+                                    .fontWeight(.bold)
                                 
+                                // Manzil
+                                Text(spot.address)
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                            }
+                            
+                            Spacer()
+                            
+                            // Yo'nalish tugmasi
+                            Button(action: {}) {
+                                Image(systemName: "paperplane.fill")
+                                    .font(.title2)
+                                    .foregroundColor(.white)
+                                    .padding(12)
+                                    .background(Circle().fill(Color.purple))
+                            }
+                        }
+                        
+                        // Tab bar
+                        HStack {
+                            TabButton(text: "Haqida", isSelected: selectedTab == "About") {
+                                selectedTab = "About"
+                            }
+                            
+                            TabButton(text: "Galereya", isSelected: selectedTab == "Gallery") {
+                                selectedTab = "Gallery"
+                            }
+                            
+                            TabButton(text: "Sharhlar", isSelected: selectedTab == "Review") {
+                                selectedTab = "Review"
+                            }
+                        }
+                        .overlay(
+                            VStack {
                                 Spacer()
-                                
-                                if let rating = spot.rating {
-                        HStack(spacing: 5) {
-                            Image(systemName: "star.fill")
-                                .foregroundColor(.yellow)
-                            
-                            Text(String(format: "%.1f", rating))
-                                            .fontWeight(.bold)
-                                        
-                                        if let reviewCount = spot.reviewCount {
-                                            Text("(\(reviewCount) sharhlar)")
-                                                .foregroundColor(.gray)
-                                        }
-                                    }
-                                }
+                                Rectangle()
+                                    .fill(Color.gray.opacity(0.3))
+                                    .frame(height: 1)
                             }
-                            .padding(.top, 15)
-                            
-                            // Nom va manzil
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    // Nom
-                    Text(spot.name)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    
-                    // Manzil
-                        Text(spot.address)
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                    }
-                    
-                                Spacer()
-                                
-                                // Yo'nalish tugmasi
-                                Button(action: {}) {
-                                    Image(systemName: "paperplane.fill")
-                                        .font(.title2)
-                                        .foregroundColor(.white)
-                                        .padding(12)
-                                        .background(Circle().fill(Color.purple))
-                                }
-                            }
-                            
-                            // Tab bar
-                            HStack {
-                                TabButton(text: "Haqida", isSelected: selectedTab == "About") {
-                                    selectedTab = "About"
-                                }
-                                
-                                TabButton(text: "Galereya", isSelected: selectedTab == "Gallery") {
-                                    selectedTab = "Gallery"
-                                }
-                                
-                                TabButton(text: "Sharhlar", isSelected: selectedTab == "Review") {
-                                    selectedTab = "Review"
-                                }
-                            }
-                            .overlay(
-                        VStack {
-                                    Spacer()
-                                    Rectangle()
-                                        .fill(Color.gray.opacity(0.3))
-                                        .frame(height: 1)
-                                }
-                            )
-                            .overlay(
-                                GeometryReader { geometry in
-                                    Rectangle()
-                                        .fill(Color.purple)
-                                        .frame(width: geometry.size.width / 3, height: 3)
-                                        .offset(x: CGFloat(
-                                            selectedTab == "About" ? 0 :
+                        )
+                        .overlay(
+                            GeometryReader { geometry in
+                                Rectangle()
+                                    .fill(Color.purple)
+                                    .frame(width: geometry.size.width / 3, height: 3)
+                                    .offset(x: CGFloat(
+                                        selectedTab == "About" ? 0 :
                                             selectedTab == "Gallery" ? geometry.size.width / 3 :
                                             2 * geometry.size.width / 3
-                                        ))
-                                }
+                                    ))
+                            }
                                 .frame(height: 3)
-                                .offset(y: 20),
-                                alignment: .bottom
-                            )
-                            
-                            // Tab tarkibi
+                                .offset(y: 10),
+                            alignment: .bottom
+                        )
+                        
+                        // Tab tarkibi
+                        ScrollView{
                             if selectedTab == "About" {
                                 AboutTabContent(spot: spot)
                             } else if selectedTab == "Gallery" {
@@ -235,17 +236,18 @@ struct ParkingSpotDetailsView: View {
                                     }
                             }
                         }
-                        .padding(.horizontal)
-                        
-                        Spacer(minLength: 80)
                     }
+                    .padding(.horizontal)
+                    
+                    
                 }
                 
+                
                 // Pastki qism
-                        VStack {
+                VStack {
                     HStack {
                         VStack(alignment: .leading) {
-                            Text("Umumiy narx")
+                            Text("Soatlik narx")
                                 .font(.caption)
                                 .foregroundColor(.gray)
                             
@@ -259,10 +261,11 @@ struct ParkingSpotDetailsView: View {
                         Button(action: {
                             showBookingView = true
                         }) {
-                            Text("Joy band qilish")
+                            Text("Band qilish")
                                 .font(.headline)
+                                .lineLimit(1)
                                 .foregroundColor(.white)
-                                .padding(.horizontal, 40)
+                                .padding(.horizontal, 20)
                                 .padding(.vertical, 12)
                                 .background(Color.purple)
                                 .cornerRadius(25)
@@ -378,85 +381,86 @@ struct AboutTabContent: View {
     let spot: ParkingSpot
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
-            // Qo'shimcha ma'lumotlar
-            HStack(spacing: 40) {
-                HStack(spacing: 5) {
-                    Image(systemName: "clock.fill")
-                        .foregroundColor(.purple)
-                        .font(.subheadline)
-                    Text("\(spot.distance) uzoqlikda")
+            VStack(alignment: .leading, spacing: 15) {
+                // Qo'shimcha ma'lumotlar
+                HStack(spacing: 40) {
+                    HStack(spacing: 5) {
+                        Image(systemName: "clock.fill")
+                            .foregroundColor(.purple)
+                            .font(.subheadline)
+                        Text("\(spot.distance) uzoqlikda")
                             .font(.subheadline)
                             .foregroundColor(.gray)
                     }
                     
-                HStack(spacing: 5) {
-                    Image(systemName: "car.fill")
-                        .foregroundColor(.purple)
-                        .font(.subheadline)
-                    Text("\(spot.spotsAvailable) bo'sh joy")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                }
-            }
-                        .padding(.top, 10)
-                    
-            // Tavsif
-            Text("Tavsif")
-                .font(.headline)
-                .padding(.top, 5)
-            
-            Text(spot.description ?? "Tavsif mavjud emas")
-                .font(.subheadline)
-                .foregroundColor(.gray)
-                .fixedSize(horizontal: false, vertical: true)
-                .lineLimit(3)
-            
-            if (spot.description?.count ?? 0) > 100 {
-                Button(action: {}) {
-                    Text("Ko'proq o'qish")
-                        .foregroundColor(.purple)
-                }
-            }
-            
-            // Operator
-            Text("Operatorlar")
-                            .font(.headline)
-                            .padding(.top, 10)
-                        
-                            HStack {
-                Circle()
-                    .fill(Color.gray.opacity(0.2))
-                    .frame(width: 50, height: 50)
-                    .overlay(
-                        Text(String((spot.operatedBy?.first ?? "J").uppercased()))
+                    HStack(spacing: 5) {
+                        Image(systemName: "car.fill")
+                            .foregroundColor(.purple)
+                            .font(.subheadline)
+                        Text("\(spot.spotsAvailable) bo'sh joy")
+                            .font(.subheadline)
                             .foregroundColor(.gray)
-                    )
+                    }
+                }
+                .padding(.top, 10)
                 
-                Text(spot.operatedBy ?? "John Doe")
-                                    .font(.subheadline)
-                                
-                                Spacer()
-                                
-                Button(action: {}) {
-                    Image(systemName: "bubble.left.fill")
-                        .foregroundColor(.purple)
-                        .padding(8)
-                        .background(Color.purple.opacity(0.2))
-                        .cornerRadius(8)
+                // Tavsif
+                Text("Tavsif")
+                    .font(.headline)
+                    .padding(.top, 5)
+                
+                Text(spot.description ?? "Tavsif mavjud emas")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .lineLimit(3)
+                
+                if (spot.description?.count ?? 0) > 100 {
+                    Button(action: {}) {
+                        Text("Ko'proq o'qish")
+                            .foregroundColor(.purple)
+                    }
                 }
                 
-                Button(action: {}) {
-                    Image(systemName: "phone.fill")
-                                    .foregroundColor(.purple)
-                        .padding(8)
-                        .background(Color.purple.opacity(0.2))
-                        .cornerRadius(8)
+                // Operator
+                Text("Operatorlar")
+                    .font(.headline)
+                    .padding(.top, 10)
+                
+                HStack {
+                    Circle()
+                        .fill(Color.gray.opacity(0.2))
+                        .frame(width: 50, height: 50)
+                        .overlay(
+                            Text(String((spot.operatedBy?.first ?? "J").uppercased()))
+                                .foregroundColor(.gray)
+                        )
+                    
+                    Text(spot.operatedBy ?? "John Doe")
+                        .font(.subheadline)
+                    
+                    Spacer()
+                    
+                    Button(action: {}) {
+                        Image(systemName: "bubble.left.fill")
+                            .foregroundColor(.purple)
+                            .padding(8)
+                            .background(Color.purple.opacity(0.2))
+                            .cornerRadius(8)
+                    }
+                    
+                    Button(action: {}) {
+                        Image(systemName: "phone.fill")
+                            .foregroundColor(.purple)
+                            .padding(8)
+                            .background(Color.purple.opacity(0.2))
+                            .cornerRadius(8)
+                    }
                 }
             }
-        }
-        .padding(.horizontal)
-        .padding(.bottom, 20)
+            .padding(.horizontal)
+            .padding(.bottom, 20)
+        
     }
 }
 
@@ -469,9 +473,9 @@ struct GalleryTabContent: View {
             HStack {
                 Text("Galereya (\(images.count))")
                     .font(.headline)
-                                
+                
                 Spacer()
-                                
+                
                 Button(action: {}) {
                     HStack {
                         Image(systemName: "plus")
@@ -525,12 +529,12 @@ struct ReviewTabContent: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
-                    HStack {
+            HStack {
                 Text("Sharhlar")
-                            .font(.headline)
-                        
-                        Spacer()
-                        
+                    .font(.headline)
+                
+                Spacer()
+                
                 Button(action: {
                     showingAddReview = true
                 }) {
@@ -571,13 +575,13 @@ struct ReviewTabContent: View {
                         .padding(.horizontal, 15)
                         .padding(.vertical, 8)
                         .background(Color.purple)
-                            .foregroundColor(.white)
+                        .foregroundColor(.white)
                         .cornerRadius(20)
                     
                     Text("So'nggi")
                         .padding(.horizontal, 15)
                         .padding(.vertical, 8)
-                            .background(Color.purple)
+                        .background(Color.purple)
                         .foregroundColor(.white)
                         .cornerRadius(20)
                     
@@ -611,7 +615,7 @@ struct ReviewTabContent: View {
                 // Izohlar ro'yxati
                 ForEach(reviews) { review in
                     ReviewRow(review: review)
-                    .padding(.top, 10)
+                        .padding(.top, 10)
                 }
             }
         }
@@ -720,4 +724,4 @@ struct ActivityView: UIViewControllerRepresentable {
     
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
- 
+

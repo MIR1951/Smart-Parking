@@ -23,11 +23,10 @@ struct BookingTimeSelectionView: View {
     }
     
     var body: some View {
-        // ScrollView o'rniga ZStack va GeometryReader ishlatamiz
         GeometryReader { geometry in
             ZStack(alignment: .bottom) {
                 VStack(spacing: 0) {
-                    // Sarlavha va orqaga tugma - fiksirlangan qism
+                    // 1. Sarlavha va parking kartochkasi (fiksirlangan)
                     VStack(spacing: 20) {
                         HStack {
                             Button(action: {
@@ -48,6 +47,7 @@ struct BookingTimeSelectionView: View {
                             
                             Spacer()
                         }
+                        .padding(.top)
                         .padding(.horizontal)
                         
                         // Parking ma'lumotlari kartochkasi - fiksirlangan
@@ -59,15 +59,16 @@ struct BookingTimeSelectionView: View {
                                     contentMode: .fill
                                 )
                                 .aspectRatio(contentMode: .fill)
-                                .frame(height: 200)
-                                .clipped()
+                                .frame(height: 180)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
                             } else {
                                 Image(systemName: "car.fill")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .frame(height: 200)
+                                    .frame(height: 180)
                                     .padding()
                                     .foregroundColor(.gray)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
                             }
                             
                             VStack(alignment: .leading, spacing: 5) {
@@ -123,65 +124,114 @@ struct BookingTimeSelectionView: View {
                         .shadow(color: Color.black.opacity(0.05), radius: 5)
                         .padding(.horizontal)
                     }
-                    
-                    // Vaqt tanlash qismi - fiksirlangan
-                    VStack(spacing: 15) {
-                        // Kirish vaqti
-                        HStack {
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text("Boshlash vaqti")
-                                    .font(.headline)
+
+                    // 2. ScrollView faqat asosiy content uchun
+                    ScrollView {
+                        VStack(spacing: 15) {
+                            // Vaqt tanlash qismi
+                            HStack {
+                                VStack(alignment: .leading, spacing: 5) {
+                                    Text("Boshlash vaqti")
+                                        .font(.subheadline)
+                                    
+                                    Text(formatDateTime(startDate))
+                                        .font(.title3)
+                                        .fontWeight(.semibold)
+                                }
                                 
-                                Text(formatDateTime(startDate))
-                                    .font(.title3)
-                                    .fontWeight(.semibold)
+                                Spacer()
+                                
+                                Button(action: {
+                                    pickerType = .start
+                                    showDatePicker = true
+                                }) {
+                                    Text("O'zgartirish")
+                                        .font(.subheadline)
+                                        .foregroundColor(.purple)
+                                        .padding(.horizontal, 15)
+                                        .padding(.vertical, 8)
+                                        .background(Color.purple.opacity(0.1))
+                                        .cornerRadius(20)
+                                }
                             }
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(10)
+                            .shadow(color: Color.black.opacity(0.05), radius: 2)
+                            .padding(.horizontal)
                             
-                            Spacer()
-                            
-                            Button(action: {
-                                pickerType = .start
-                                showDatePicker = true
-                            }) {
-                                Text("O'zgartirish")
-                                    .font(.subheadline)
-                                    .foregroundColor(.purple)
-                                    .padding(.horizontal, 15)
-                                    .padding(.vertical, 8)
-                                    .background(Color.purple.opacity(0.1))
-                                    .cornerRadius(20)
+                            // Chiqish vaqti
+                            HStack {
+                                VStack(alignment: .leading, spacing: 5) {
+                                    Text("Tugash vaqti")
+                                        .font(.subheadline)
+                                    
+                                    Text(formatDateTime(endDate))
+                                        .font(.title3)
+                                        .fontWeight(.semibold)
+                                }
+                                
+                                Spacer()
+                                
+                                Button(action: {
+                                    pickerType = .end
+                                    showDatePicker = true
+                                }) {
+                                    Text("O'zgartirish")
+                                        .font(.subheadline)
+                                        .foregroundColor(.purple)
+                                        .padding(.horizontal, 15)
+                                        .padding(.vertical, 8)
+                                        .background(Color.purple.opacity(0.1))
+                                        .cornerRadius(20)
+                                }
                             }
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(10)
+                            .shadow(color: Color.black.opacity(0.05), radius: 2)
+                            .padding(.horizontal)
                         }
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(10)
-                        .shadow(color: Color.black.opacity(0.05), radius: 2)
-                        .padding(.horizontal)
                         
-                        // Chiqish vaqti
-                        HStack {
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text("Tugash vaqti")
-                                    .font(.headline)
-                                
-                                Text(formatDateTime(endDate))
-                                    .font(.title3)
-                                    .fontWeight(.semibold)
+                        // Narx ma'lumotlari - fiksirlangan 
+                        VStack(alignment: .leading, spacing: 12) {
+                            HStack {
+                                Image(systemName: "clock")
+                                    .foregroundColor(.purple)
+                                    .frame(width: 24)
+                                Text("Band qilish vaqti:")
+                                    .foregroundColor(.gray)
+                                Spacer()
+                                Text(formatDuration(endDate.timeIntervalSince(startDate)))
+                                    .fontWeight(.medium)
                             }
                             
-                            Spacer()
+                            Divider()
                             
-                            Button(action: {
-                                pickerType = .end
-                                showDatePicker = true
-                            }) {
-                                Text("O'zgartirish")
-                                    .font(.subheadline)
+                            HStack {
+                                Image(systemName: "banknote")
                                     .foregroundColor(.purple)
-                                    .padding(.horizontal, 15)
-                                    .padding(.vertical, 8)
-                                    .background(Color.purple.opacity(0.1))
-                                    .cornerRadius(20)
+                                    .frame(width: 24)
+                                Text("Soatlik narx:")
+                                    .foregroundColor(.gray)
+                                Spacer()
+                                Text(formatPrice(spot.pricePerHour))
+                                    .fontWeight(.medium)
+                            }
+                            
+                            Divider()
+                            
+                            HStack {
+                                Image(systemName: "creditcard")
+                                    .foregroundColor(.purple)
+                                    .frame(width: 24)
+                                Text("Jami narx:")
+                                    .font(.headline)
+                                Spacer()
+                                Text(formatPrice(calculateTotalPrice()))
+                                    .font(.title3)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.purple)
                             }
                         }
                         .padding()
@@ -190,58 +240,9 @@ struct BookingTimeSelectionView: View {
                         .shadow(color: Color.black.opacity(0.05), radius: 2)
                         .padding(.horizontal)
                     }
-                    
-                    // Narx ma'lumotlari - fiksirlangan 
-                    VStack(alignment: .leading, spacing: 12) {
-                        HStack {
-                            Image(systemName: "clock")
-                                .foregroundColor(.purple)
-                                .frame(width: 24)
-                            Text("Band qilish vaqti:")
-                                .foregroundColor(.gray)
-                            Spacer()
-                            Text(formatDuration(endDate.timeIntervalSince(startDate)))
-                                .fontWeight(.medium)
-                        }
-                        
-                        Divider()
-                        
-                        HStack {
-                            Image(systemName: "banknote")
-                                .foregroundColor(.purple)
-                                .frame(width: 24)
-                            Text("Soatlik narx:")
-                                .foregroundColor(.gray)
-                            Spacer()
-                            Text(formatPrice(spot.pricePerHour))
-                                .fontWeight(.medium)
-                        }
-                        
-                        Divider()
-                        
-                        HStack {
-                            Image(systemName: "creditcard")
-                                .foregroundColor(.purple)
-                                .frame(width: 24)
-                            Text("Jami narx:")
-                                .font(.headline)
-                            Spacer()
-                            Text(formatPrice(calculateTotalPrice()))
-                                .font(.title3)
-                                .fontWeight(.bold)
-                                .foregroundColor(.purple)
-                        }
-                    }
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(10)
-                    .shadow(color: Color.black.opacity(0.05), radius: 2)
-                    .padding(.horizontal)
-                    
-                    Spacer()
+                    .padding(.bottom, 20)
                 }
-                
-                // Davom etish tugmasi - har doim pastki qismda ko'rinib turadigan
+                // 3. Pastki tugma (fiksirlangan)
                 VStack {
                     Button(action: {
                         continueToVehicleSelection()
@@ -294,29 +295,25 @@ struct BookingTimeSelectionView: View {
         
         // Joriy vaqtni eng yaqin kelayotgan 30 daqiqalik intervalga yaxlitlash
         // Va 30 daqiqa qo'shish (band qilish hech bo'lmaganda joriy vaqtdan 30 daqiqa keyindan boshlanishi kerak)
-        startDate = roundToThirtyMinutes(currentDate.addingTimeInterval(1800), roundingType: .down)
+        startDate = roundToThirtyMinutes(currentDate.addingTimeInterval(1800))
         
         // Tugash vaqti boshlang'ich vaqtdan kamida 1 soat keyin
         endDate = startDate.addingTimeInterval(3600)
     }
     
-    // Vaqtni 30 daqiqalik intervalga yaxlitlash
-    private func roundToThirtyMinutes(_ date: Date, roundingType: RoundingType) -> Date {
+    // Vaqtni 30 daqiqalik intervalga yaxlitlash - yangilangan
+    private func roundToThirtyMinutes(_ date: Date) -> Date {
         let calendar = Calendar.current
         var components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
         
         let minutes = components.minute ?? 0
         
-        switch roundingType {
-        case .down:
-            // Pastga yaxlitlash (kelish vaqti uchun)
-            components.minute = minutes < 30 ? 0 : 30
-        case .up:
-            // Yuqoriga yaxlitlash (chiqish vaqti uchun)
-            components.minute = minutes <= 30 ? 30 : 0
-            if minutes > 30 {
-                components.hour = (components.hour ?? 0) + 1
-            }
+        // 30 daqiqalik intervallarga yaxlitlash
+        if minutes < 30 {
+            components.minute = 30
+        } else {
+            components.minute = 0
+            components.hour = (components.hour ?? 0) + 1
         }
         
         components.second = 0
@@ -324,12 +321,7 @@ struct BookingTimeSelectionView: View {
         return calendar.date(from: components) ?? date
     }
     
-    enum RoundingType {
-        case up   // Yuqoriga yaxlitlash (chiqish vaqti uchun)
-        case down // Pastga yaxlitlash (kelish vaqti uchun)
-    }
-    
-    // Narx formatini UZS (so'm) ko'rinishiga o'zgartirish
+    // To'g'rilangan narx formatini UZS (so'm) ko'rinishiga o'zgartirish
     private func formatPrice(_ price: Double) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -344,14 +336,38 @@ struct BookingTimeSelectionView: View {
         return "\(Int(price)) so'm"
     }
     
+    // To'g'rilangan narx hisoblash funksiyasi
     private func calculateTotalPrice() -> Double {
-        let hours = ceil(endDate.timeIntervalSince(startDate) / 3600)
-        return hours * spot.pricePerHour
+        let durationInSeconds = endDate.timeIntervalSince(startDate)
+        let durationInHours = durationInSeconds / 3600
+        
+        // 30 daqiqalik intervallarga bo'lingan narx hisoblash
+        let halfHoursDouble = ceil(durationInSeconds / 1800)
+        let halfHours = Int(halfHoursDouble)
+        let finalHours = Double(halfHours) / 2.0
+        let hasHalfHour = halfHours % 2 == 1
+        
+        // Asosiy narx (to'liq soatlar uchun)
+        var price = finalHours * spot.pricePerHour
+        
+        // Agar yarim soat qo'shimcha bo'lsa
+        if hasHalfHour {
+            price += spot.pricePerHour / 2
+        }
+        
+        // Minimal narx 30 daqiqa uchun (yarim soatlik narx)
+        if price == 0 {
+            price = spot.pricePerHour / 2
+        }
+        
+        return price
     }
     
+    // To'g'rilangan vaqt formatini ko'rsatish
     private func formatDuration(_ seconds: TimeInterval) -> String {
-        let hours = Int(seconds) / 3600
-        let minutes = (Int(seconds) % 3600) / 60
+        let totalMinutes = Int(seconds) / 60
+        let hours = totalMinutes / 60
+        let minutes = totalMinutes % 60
         let days = hours / 24
         let remainingHours = hours % 24
         
@@ -388,40 +404,110 @@ struct DatePickerSheet: View {
     let minimumDate: Date
     @Binding var isPresented: Bool
     
+    @State private var selectedDate: Date
+    @State private var selectedHour: Int
+    @State private var selectedMinute: Int
+    
+    init(startDate: Binding<Date>, endDate: Binding<Date>, pickerType: BookingTimeSelectionView.DatePickerType, minimumDate: Date, isPresented: Binding<Bool>) {
+        self._startDate = startDate
+        self._endDate = endDate
+        self.pickerType = pickerType
+        self.minimumDate = minimumDate
+        self._isPresented = isPresented
+        
+        let date = pickerType == .start ? startDate.wrappedValue : endDate.wrappedValue
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minute = calendar.component(.minute, from: date)
+        
+        self._selectedDate = State(initialValue: date)
+        self._selectedHour = State(initialValue: hour)
+        self._selectedMinute = State(initialValue: minute)
+    }
+    
     var body: some View {
         NavigationView {
-            VStack {
-                DatePicker(
-                    "Sana va vaqtni tanlang",
-                    selection: pickerType == .start ? $startDate : $endDate,
-                    in: pickerType == .start ? minimumDate... : startDate.addingTimeInterval(1800)...,
-                    displayedComponents: [.date, .hourAndMinute]
-                )
-                .datePickerStyle(GraphicalDatePickerStyle())
-                .labelsHidden()
-                .padding()
-                .environment(\.locale, Locale(identifier: "uz_UZ"))
+            VStack(spacing: 20) {
+                // Sana tanlash qismi (kichikroq, kamroq e'tibor)
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Sana:")
+                        .font(.headline)
+                        .foregroundColor(.gray)
+                    
+                    DatePicker("", selection: $selectedDate, in: pickerType == .start ? minimumDate... : startDate.addingTimeInterval(1800)..., displayedComponents: [.date])
+                        .datePickerStyle(CompactDatePickerStyle())
+                        .labelsHidden()
+                        .environment(\.locale, Locale(identifier: "uz_UZ"))
+                }
+                .padding(.horizontal)
                 
-                Button("Tasdiqlash") {
-                    // Minimal vaqt farqi yarim soat (1800 sekund)
-                    if endDate.timeIntervalSince(startDate) < 1800 {
-                        endDate = startDate.addingTimeInterval(1800)
-                    }
+                // Soat va minut tanlagichlar (asosiy e'tibor)
+                VStack(spacing: 30) {
+                    Text("Vaqtni tanlang")
+                        .font(.title2)
+                        .fontWeight(.bold)
                     
-                    // 30 daqiqalik intervallarga yaxlitlash
-                    if pickerType == .start {
-                        // Kelish vaqtini pastga yaxlitlash
-                        startDate = roundToThirtyMinutes(startDate, roundingType: .down)
-                        // Agar endDate ham mos kelmasa, uni ham yangilash
-                        if endDate.timeIntervalSince(startDate) < 1800 {
-                            endDate = startDate.addingTimeInterval(1800)
+                    HStack(spacing: 20) {
+                        // Soat tanlagich
+                        VStack {
+                            Text("Soat")
+                                .font(.caption)
+                                .foregroundColor(.gray)
+                            
+                            Picker("Soat", selection: $selectedHour) {
+                                ForEach(0..<24, id: \.self) { hour in
+                                    Text("\(hour)").tag(hour)
+                                }
+                            }
+                            .pickerStyle(WheelPickerStyle())
+                            .frame(width: 80, height: 120)
+                            .clipped()
                         }
-                    } else {
-                        // Chiqish vaqtini yuqoriga yaxlitlash
-                        endDate = roundToThirtyMinutes(endDate, roundingType: .up)
+                        
+                        Text(":")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .padding(.top, 20)
+                        
+                        // Minut tanlagich
+                        VStack {
+                            Text("Daqiqa")
+                                .font(.caption)
+                                .foregroundColor(.gray)
+                            
+                            Picker("Daqiqa", selection: $selectedMinute) {
+                                ForEach([0, 30], id: \.self) { minute in
+                                    Text("\(minute)").tag(minute)
+                                }
+                            }
+                            .pickerStyle(WheelPickerStyle())
+                            .frame(width: 80, height: 120)
+                            .clipped()
+                        }
                     }
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 15).fill(Color.white).shadow(color: Color.black.opacity(0.1), radius: 5))
                     
-                    isPresented = false
+                    // Tanlangan vaqt
+                    VStack {
+                        Text("Tanlangan vaqt:")
+                            .font(.headline)
+                            .foregroundColor(.gray)
+                        
+                        Text("\(formatTime(hour: selectedHour, minute: selectedMinute))")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(.purple)
+                    }
+                    .padding()
+                }
+                .padding(.top)
+                
+                Spacer()
+                
+                // Tasdiqlash tugmasi
+                Button("Tasdiqlash") {
+                    applySelectedTimeAndDismiss()
                 }
                 .font(.headline)
                 .foregroundColor(.white)
@@ -431,6 +517,7 @@ struct DatePickerSheet: View {
                 .cornerRadius(10)
                 .padding(.horizontal)
             }
+            .padding(.vertical)
             .navigationTitle(pickerType == .start ? "Boshlash vaqti" : "Tugash vaqti")
             .navigationBarItems(trailing: Button("Yopish") {
                 isPresented = false
@@ -438,27 +525,38 @@ struct DatePickerSheet: View {
         }
     }
     
-    // Vaqtni 30 daqiqalik intervalga yaxlitlash
-    private func roundToThirtyMinutes(_ date: Date, roundingType: BookingTimeSelectionView.RoundingType) -> Date {
-        let calendar = Calendar.current
-        var components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
-        
-        let minutes = components.minute ?? 0
-        
-        switch roundingType {
-        case .down:
-            // Pastga yaxlitlash (kelish vaqti uchun)
-            components.minute = minutes < 30 ? 0 : 30
-        case .up:
-            // Yuqoriga yaxlitlash (chiqish vaqti uchun)
-            components.minute = minutes <= 30 ? 30 : 0
-            if minutes > 30 {
-                components.hour = (components.hour ?? 0) + 1
-            }
-        }
-        
+    // Soat va minutlarni formatlash
+    private func formatTime(hour: Int, minute: Int) -> String {
+        return String(format: "%02d:%02d", hour, minute)
+    }
+    
+    // Tanlangan vaqtni qo'llash
+    private func applySelectedTimeAndDismiss() {
+        // Tanlangan sana va vaqtdan yangi sana yaratish
+        var components = Calendar.current.dateComponents([.year, .month, .day], from: selectedDate)
+        components.hour = selectedHour
+        components.minute = selectedMinute
         components.second = 0
         
-        return calendar.date(from: components) ?? date
+        guard let newDate = Calendar.current.date(from: components) else { return }
+        
+        // Sana minimal chegaralarini tekshirish
+        let validDate = max(newDate, minimumDate)
+        
+        // Tanlangan vaqtga qarab start yoki end date'ni yangilash
+        if pickerType == .start {
+            startDate = validDate
+            
+            // Agar endDate ham mos kelmasa, uni ham yangilash
+            if endDate.timeIntervalSince(startDate) < 1800 {
+                endDate = startDate.addingTimeInterval(1800)
+            }
+        } else {
+            // Eng kamida startDate dan 30 daqiqa keyin bo'lishi kerak
+            let minimumEndDate = startDate.addingTimeInterval(1800)
+            endDate = max(validDate, minimumEndDate)
+        }
+        
+        isPresented = false
     }
 } 

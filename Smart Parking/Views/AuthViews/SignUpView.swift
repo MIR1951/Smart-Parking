@@ -15,6 +15,8 @@ struct SignUpView: View {
     
     var body: some View {
         ZStack {
+            Color.white
+                .ignoresSafeArea()
             if isRegistered {
                 LocationPermissionView()
             } else if showLogin {
@@ -51,6 +53,7 @@ struct SignUpView: View {
                             TextField("example@gmail.com", text: $email)
                                 .padding()
                                 .background(Color.gray.opacity(0.1))
+                                .foregroundStyle(.gray)
                                 .cornerRadius(10)
                                 .keyboardType(.emailAddress)
                                 .autocapitalization(.none)

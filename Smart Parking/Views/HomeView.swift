@@ -2,21 +2,6 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
 
-
-
-
-
-// Xabarlar
-enum AlertItem: Identifiable {
-    var id: String { 
-        switch self {
-        case .error(let message): return message
-        }
-    }
-    
-    case error(String)
-}
-
 struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     @State private var searchText = ""
@@ -604,6 +589,16 @@ class HomeViewModel: ObservableObject {
             }
         }
     }
+}
+// Xabarlar
+enum AlertItem: Identifiable {
+    var id: String {
+        switch self {
+        case .error(let message): return message
+        }
+    }
+    
+    case error(String)
 }
 
 struct HomeView_Previews: PreviewProvider {

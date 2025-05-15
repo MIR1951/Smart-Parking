@@ -1,0 +1,36 @@
+{
+    "folders": [
+        {
+            "name": "Smart-Parking/Smart Parking.xcodeproj",
+            "path": "../.."
+        }
+    ],
+    "settings": {
+        "files.exclude": {
+            "Smart-Parking": true,
+            "Smart ParkingUITests": true,
+            "Smart ParkingTests": true,
+            "Smart Parking": true,
+            ".vscode/xcode/fifo": true,
+            ".vscode/xcode/bundles": true
+        },
+        "search.exclude": {
+            "Smart-Parking": true,
+            "Smart ParkingUITests": true,
+            "Smart ParkingTests": true,
+            "Smart Parking": true,
+            ".vscode/xcode/fifo": true,
+            ".vscode/xcode/bundles": true
+        },
+        "swift.autoGenerateLaunchConfigurations": false,
+        "swift.disableAutoResolve": true,
+        "swift.sourcekit-lsp.disable": true,
+        "swift.disableSwiftPackageManagerIntegration": true,
+        "swift.searchSubfoldersForPackages": false
+    },
+    "extensions": {
+        "unwantedRecommendations": [
+            "sswg.swift-lang"
+        ]
+    }
+}
